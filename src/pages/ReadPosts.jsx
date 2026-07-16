@@ -1,12 +1,23 @@
 import { useState, useEffect } from 'react'
 import Card from '../components/Card'
+import { supabase } from '../client'
 
 const ReadPosts = (props) => {
 
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        setPosts(props.data)
+        // READ all post from table
+        const fetchPosts = async () => {
+            const {data} = await supabase
+                .from('Posts')
+                .select();
+
+            // set state of posts
+            setPosts(data)
+        }
+
+        fetchPosts()
     }, [props])
     
     return (
