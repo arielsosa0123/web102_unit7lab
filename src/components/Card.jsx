@@ -7,15 +7,15 @@ import { supabase } from '../client'
 
 const Card = (props) =>  {
 
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(props.betCount)
   const updateCount = async (event) => {
     event.preventDefault();
 
     await supabase
       .from("Posts")
       .update({betCount:count+1})
-      .eq('id', id);
-      
+      .eq('id', props.id);
+
     setCount((count) => count + 1)
   }
 
